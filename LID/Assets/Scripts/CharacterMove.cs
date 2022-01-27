@@ -5,21 +5,37 @@ using UnityEngine;
 public class CharacterMove : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Animator animator;
+
     private float HorizontalMove = 0f;
     private bool FaceRight = true;
 
     public float speed = 1f;
 
+
+    private States State
+    {
+        get { return (States)animator.GetInteger("state"); }
+        set { animator.SetInteger("state", (int)value); }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetButton("Horizontal"))
+            State = States.run;
+        else
+            State = States.idle;
         HorizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+
         if (HorizontalMove < 0 && FaceRight)
             Flip();
         else if (HorizontalMove > 0 && !FaceRight)
@@ -34,10 +50,19 @@ public class CharacterMove : MonoBehaviour
 
     private void Flip()
     {
+        
         FaceRight = !FaceRight;
 
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+    
+}
+
+public enum States
+{
+    idle,
+    run
 }
