@@ -47,7 +47,7 @@ public class CharacterMove : MonoBehaviour
         }
         else
         {
-            HorizontalMove = 0;
+            HorizontalMove = 0; 
         }
     }
 
