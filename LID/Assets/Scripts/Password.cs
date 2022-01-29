@@ -5,10 +5,22 @@ using UnityEngine.UI;
 
 public class Password : MonoBehaviour
 {
+    //private int timer;
+    private bool isEnd = false;
+    private bool isStart = false;
+    private bool isCorrect = false;
+
+    private float EndTime1 = 0;
+    private float EndTime2 = 0;
+
     Text textWindow;
     string visibleText = "";
     public string password;
-    public bool isCorrect = false;
+
+    public float beforeTimer;
+    public float afterTimer;
+
+    public GameObject door;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +31,49 @@ public class Password : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textWindow.text = visibleText;
-
-        if (visibleText == password)
+        if (!isCorrect)
         {
-            isCorrect = true;
+            textWindow.text = visibleText;
+
+            if (textWindow.text.ToString().Length != 4)
+            {
+                var l = textWindow.text.ToString().Length;
+                for (var i = 0; i < (4 - l); i++)
+                {
+                    textWindow.text += "-";
+                }
+            }
+
+            if (!isStart && !isEnd)
+            {
+                if (visibleText == password)
+                {
+                    isCorrect = true;
+                    door.GetComponent<LevelUnder>().OpenFirst();
+                }
+                else if (visibleText.Length >= 4)
+                {
+                    isStart = true;
+                    EndTime1 = Time.time + beforeTimer;
+
+                    isEnd = true;
+                    EndTime2 = EndTime1 + afterTimer;
+                }
+            }
+            else if (isStart && Time.time >= EndTime1)
+            {
+                isStart = false;
+                visibleText = "NOPE";
+            }
+            else if (isEnd && Time.time >= EndTime2)
+            {
+                isEnd = false;
+                visibleText = "";
+            }
+        }
+        else
+        {
+            textWindow.text = "YEAP";
         }
     }
 
@@ -31,16 +81,9 @@ public class Password : MonoBehaviour
     {
         if (!isCorrect)
         {
-            if (visibleText == "----")
-                visibleText = "";
-
             if (visibleText.Length < 4)
             {
                 visibleText += num;
-            }
-            else
-            {
-                visibleText = "----";
             }
         }
     }
