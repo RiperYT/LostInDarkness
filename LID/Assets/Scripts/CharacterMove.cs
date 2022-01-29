@@ -12,6 +12,8 @@ public class CharacterMove : MonoBehaviour
 
     public float speed = 1f;
 
+    public bool isFreezed = false;
+
 
     private States State
     {
@@ -22,6 +24,7 @@ public class CharacterMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isFreezed = false;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -29,17 +32,23 @@ public class CharacterMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isFreezed)
+        {
+            if (Input.GetButton("Horizontal"))
+                State = States.run;
+            else
+                State = States.idle;
+            HorizontalMove = Input.GetAxisRaw("Horizontal") * speed;
 
-        if (Input.GetButton("Horizontal"))
-            State = States.run;
+            if (HorizontalMove < 0 && FaceRight)
+                Flip();
+            else if (HorizontalMove > 0 && !FaceRight)
+                Flip();
+        }
         else
-            State = States.idle;
-        HorizontalMove = Input.GetAxisRaw("Horizontal") * speed;
-
-        if (HorizontalMove < 0 && FaceRight)
-            Flip();
-        else if (HorizontalMove > 0 && !FaceRight)
-            Flip();
+        {
+            HorizontalMove = 0;
+        }
     }
 
     private void FixedUpdate()
