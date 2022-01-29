@@ -17,7 +17,7 @@ public class PinPanel : MonoBehaviour
     {
         if (isOnTrigger)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !hero.GetComponent<CharacterMove>().isFreezedAnim)
             {
                 hero.GetComponent<CharacterMove>().isFreezed = true;
                 pinCodeMenu.SetActive(true);

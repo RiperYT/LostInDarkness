@@ -10,10 +10,18 @@ public class CharacterMove : MonoBehaviour
     private float HorizontalMove = 0f;
     private bool FaceRight = true;
 
+    public bool isFreezedAnim = false;
+    private float EndTime = 0;
+
     public float speed = 1f;
+    public float deltaTime;
 
     public bool isFreezed = false;
 
+    public GameObject LightMenu;
+    public GameObject LightGun;
+
+    private float Intensity;
 
     private States State
     {
@@ -24,16 +32,34 @@ public class CharacterMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isFreezedAnim = false;
         isFreezed = false;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        Intensity = LightGun.GetComponent<Light>().intensity;
+        LightGun.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isFreezed)
+        if (isFreezedAnim)
         {
+            if (Time.time > EndTime)
+            {
+                isFreezedAnim = false;
+                LightGun.SetActive(false);
+            }
+            if (Time.time < EndTime - (deltaTime / 2))
+                LightGun.GetComponent<Light>().intensity = Intensity * (Time.time - EndTime + deltaTime) / (deltaTime / 2);
+            else
+                LightGun.GetComponent<Light>().intensity = Intensity * (EndTime - Time.time) / (deltaTime / 2);
+            State = States.dark;
+            HorizontalMove = 0;
+        }
+        else if (!isFreezed)
+        {
+            
             if (Input.GetButton("Horizontal"))
                 State = States.run;
             else
@@ -44,6 +70,18 @@ public class CharacterMove : MonoBehaviour
                 Flip();
             else if (HorizontalMove > 0 && !FaceRight)
                 Flip();
+            else if (HorizontalMove == 0 )
+                State = States.idle;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                LightGun.SetActive(true);
+                isFreezedAnim = true;
+                EndTime = Time.time + deltaTime;
+                State = States.dark;
+                HorizontalMove = 0;
+                LightMenu.GetComponent<LightMenu>().Change(deltaTime);
+            }
         }
         else
         {
@@ -73,5 +111,6 @@ public class CharacterMove : MonoBehaviour
 public enum States
 {
     idle,
-    run
+    run,
+    dark
 }

@@ -28,7 +28,7 @@ public class LevelUnder : MonoBehaviour
         ThirdDoor.GetComponent<DoorOC>().CloseTheDoor();
 
         SecondDark.SetActive(true);
-        ThirdDark.SetActive(true);
+        ThirdDark.SetActive(false);
     }
 
     public void OpenFirst()
