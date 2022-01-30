@@ -16,6 +16,8 @@ public class ArmMode : MonoBehaviour
     public GameObject hero;
 
     public GameObject ArmMenu;
+
+    public AudioSource effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class ArmMode : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && !hero.GetComponent<CharacterMove>().isFreezedAnim)
             {
+                effect.Play();
                 mode = !mode;
                 if (mode)
                 {

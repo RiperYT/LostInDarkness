@@ -26,6 +26,8 @@ public class LightMode : MonoBehaviour
     private float StartTime;
     private float DeltaTime;
 
+    public AudioSource effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,6 +114,7 @@ public class LightMode : MonoBehaviour
 
     public void Changed(float deltaTime, GameObject lightGun)
     {
+        effect.Play();
         if (needChanging)
             needChanging = false;
         else

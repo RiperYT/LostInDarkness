@@ -16,6 +16,10 @@ public class LevelUnder : MonoBehaviour
     public GameObject SecondDark;
     public GameObject ThirdDark;
 
+    public AudioSource first;
+    public AudioSource second;
+    public AudioSource third;
+
     private void Start()
     {
         First = false;
@@ -36,6 +40,7 @@ public class LevelUnder : MonoBehaviour
         if (First == false)
         {
             First = true;
+            first.Play();
             FirstDoor.GetComponent<DoorOC>().OpenTheDoor();
             SecondDark.SetActive(false);
 
@@ -46,6 +51,7 @@ public class LevelUnder : MonoBehaviour
         if (Second == false)
         {
             Second = true;
+            second.Play();
             SecondDoor.GetComponent<DoorOC>().OpenTheDoor();
             ThirdDark.SetActive(false);
         }
@@ -55,6 +61,7 @@ public class LevelUnder : MonoBehaviour
         if (Third == false)
         {
             Third = true;
+            third.Play();
             ThirdDoor.GetComponent<HatchOC>().OpenTheDoor();
         }
     }

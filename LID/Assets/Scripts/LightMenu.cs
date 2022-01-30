@@ -5,10 +5,17 @@ using UnityEngine;
 public class LightMenu : MonoBehaviour
 {
     public GameObject LightGun;
+
     public List<GameObject> ListLightMode1;
     public List<GameObject> ListLightMode2;
     public List<GameObject> ListLightMode3;
     public List<GameObject> ListLightMode4;
+
+    public List<GameObject> ListHintMode1;
+    public List<GameObject> ListHintMode2;
+    public List<GameObject> ListHintMode3;
+    public List<GameObject> ListHintMode4;
+
     public int roomId;
     void Start()
     {
@@ -34,5 +41,18 @@ public class LightMenu : MonoBehaviour
         if (roomId == 4)
             foreach (GameObject obj in ListLightMode4)
                 obj.GetComponent<LightMode>().Changed(deltaTime, LightGun);
+
+        if (roomId == 1)
+            foreach (GameObject obj in ListHintMode1)
+                obj.GetComponent<Hint>().Changed(deltaTime, LightGun);
+        if (roomId == 2)
+            foreach (GameObject obj in ListHintMode2)
+                obj.GetComponent<Hint>().Changed(deltaTime, LightGun);
+        if (roomId == 3)
+            foreach (GameObject obj in ListHintMode3)
+                obj.GetComponent<Hint>().Changed(deltaTime, LightGun);
+        if (roomId == 4)
+            foreach (GameObject obj in ListHintMode4)
+                obj.GetComponent<Hint>().Changed(deltaTime, LightGun);
     }
 }

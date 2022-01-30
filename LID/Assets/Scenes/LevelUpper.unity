@@ -1938,6 +1938,10 @@ MonoBehaviour:
   - {fileID: 970761333}
   - {fileID: 354400848}
   ListLightMode4: []
+  ListHintMode1: []
+  ListHintMode2: []
+  ListHintMode3: []
+  ListHintMode4: []
   roomId: 0
 --- !u!4 &1691322593
 Transform:
