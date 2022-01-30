@@ -87,9 +87,7 @@ public class CirclePassword : MonoBehaviour
     public void Restart()
     {
         id = 0;
-        thisTransform.rotation = Quaternion.Euler(0, 0, 0);
         correct = 0;
-        isActive = false;
     }
 
     public void StartRotating()
