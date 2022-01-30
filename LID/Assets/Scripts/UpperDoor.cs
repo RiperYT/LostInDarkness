@@ -20,7 +20,7 @@ public class UpperDoor : MonoBehaviour
         isOpen = false;
     }
 
-    void FirstOpen()
+    public void FirstOpen()
     {
         if (!isOpen)
         {
