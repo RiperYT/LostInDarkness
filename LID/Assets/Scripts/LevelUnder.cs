@@ -25,7 +25,7 @@ public class LevelUnder : MonoBehaviour
         SecondDoor.GetComponent<DoorOC>().CloseTheDoor();
 
         Third = false;
-        ThirdDoor.GetComponent<DoorOC>().CloseTheDoor();
+        ThirdDoor.GetComponent<HatchOC>().CloseTheDoor();
 
         SecondDark.SetActive(true);
         ThirdDark.SetActive(false);
@@ -55,7 +55,7 @@ public class LevelUnder : MonoBehaviour
         if (Third == false)
         {
             Third = true;
-            ThirdDoor.GetComponent<DoorOC>().OpenTheDoor();
+            ThirdDoor.GetComponent<HatchOC>().OpenTheDoor();
         }
     }
 }

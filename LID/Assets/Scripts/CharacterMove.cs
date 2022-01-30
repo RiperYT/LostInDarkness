@@ -23,7 +23,7 @@ public class CharacterMove : MonoBehaviour
 
     private float Intensity;
 
-    private States State
+    public States State
     {
         get { return (States)animator.GetInteger("state"); }
         set { animator.SetInteger("state", (int)value); }
