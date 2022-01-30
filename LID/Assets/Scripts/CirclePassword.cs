@@ -15,10 +15,10 @@ public class CirclePassword : MonoBehaviour
     public List<int> password;
     public List<bool> passwordSide;
     public GameObject door;
+    public Camera camera;
 
     private Vector2 first;
     private Transform thisTransform;
-    private Camera camera;
 
     private float previousAngle = 0f;
     private int id;
