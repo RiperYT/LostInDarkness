@@ -23,6 +23,8 @@ public class CharacterMove : MonoBehaviour
 
     private float Intensity;
 
+    public bool isBeetwen = false;
+
     public States State
     {
         get { return (States)animator.GetInteger("state"); }
@@ -73,7 +75,7 @@ public class CharacterMove : MonoBehaviour
             else if (HorizontalMove == 0 )
                 State = States.idle;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !isBeetwen)
             {
                 LightGun.SetActive(true);
                 isFreezedAnim = true;
