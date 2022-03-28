@@ -24,6 +24,8 @@ public class CharacterMove : MonoBehaviour
     private float Intensity;
 
     public bool isBeetwen = false;
+    public AudioClip[] clip;
+    private AudioSource sorce;
 
     public States State
     {
@@ -40,6 +42,7 @@ public class CharacterMove : MonoBehaviour
         animator = GetComponent<Animator>();
         Intensity = LightGun.GetComponent<Light>().intensity;
         LightGun.SetActive(false);
+        sorce = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -67,12 +70,18 @@ public class CharacterMove : MonoBehaviour
             else
                 State = States.idle;
             HorizontalMove = Input.GetAxisRaw("Horizontal") * speed;
-
+            //if (HorizontalMove != 0)
+                //sorce.PlayOneShot(clip[0]);
             if (HorizontalMove < 0 && FaceRight)
+            {
+                
                 Flip();
+            }
             else if (HorizontalMove > 0 && !FaceRight)
+            {
                 Flip();
-            else if (HorizontalMove == 0 )
+            }
+            else if (HorizontalMove == 0)
                 State = States.idle;
 
             if (Input.GetKeyDown(KeyCode.Space) && !isBeetwen)

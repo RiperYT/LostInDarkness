@@ -9,10 +9,14 @@ public class Shelf : MonoBehaviour
 
     private List<bool> isOpen = new List<bool>();
     private bool isCorrect = false;
+    private bool isOneCorrect = false;
+
+    public AudioSource effect;
 
     // Update is called once per frame
     void Update()
     {
+        
         if (isOpen != null || isOpen.Count > 0)
             isOpen.Clear();
 
@@ -24,26 +28,41 @@ public class Shelf : MonoBehaviour
         isCorrect = true;
 
         foreach (var i in isOpen)
-        { 
+        {
             if (!i)
+            {   
                 isCorrect = false;
+                if (isOneCorrect)
+                {
+                    isOneCorrect = false;
+                    door.GetComponent<UpperDoor>().FirstClose();
+                    effect.Play();
+                }
+            }
         }
 
-        if (isCorrect)
+        if (!isOneCorrect)
         {
-            print("yes");
-            if (door == null)
-                print("fuck");
-            door.GetComponent<UpperDoor>().FirstOpen();
-        }
-        else
-        {
-            string text = " ";
-            foreach (var i in isOpen)
+            if (isCorrect)
             {
-                text += i + " ";
+
+                effect.Play();
+                print("yes");
+                if (door == null)
+                    print("fuck");
+                door.GetComponent<UpperDoor>().FirstOpen();
+
+                isOneCorrect = true;
             }
-            print(text);
+            else
+            {
+                string text = " ";
+                foreach (var i in isOpen)
+                {
+                    text += i + " ";
+                }
+                print(text);
+            }
         }
     }
 }

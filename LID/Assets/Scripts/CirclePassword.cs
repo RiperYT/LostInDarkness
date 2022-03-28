@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CirclePassword : MonoBehaviour
 {
-    enum Side
+    /*enum Side
     { 
         Left = 0,
         Right = 1
@@ -13,10 +13,10 @@ public class CirclePassword : MonoBehaviour
     public float speed;
     public int miss;
     public List<int> password;
-    public List<bool> passwordSide;
+    public List<bool> passwordSide;*/
     public GameObject door;
     public Camera camera;
-
+    /*
     private Vector2 first;
     private Transform thisTransform;
 
@@ -153,5 +153,87 @@ public class CirclePassword : MonoBehaviour
             temp -= 360;
 
         return temp;
+    }*/
+
+    public int numbflip = 1;
+    public bool flip = true;
+    private float z = 0;
+    public float speed;
+    public float miss;
+
+    private int first = 115;
+    private int second = -38;
+    private int third = -156;
+    private bool isReady = false;
+
+    private void Update()
+    {
+        if(!isReady)
+        if(Input.GetAxisRaw("Horizontal") > 0)
+        {
+            z -= speed;
+            if (z < -180)
+                z = 360 + z;
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, z);
+            float k = z + 70;
+            if (k > 180)
+                k = -360 + k;
+            if (!flip)
+                //gameObject.transform.rotation = Quaternion.Euler(0, 0, z);
+            {
+                if(numbflip == 1)
+                {
+                    if (k < first + miss && k > first - miss)
+                        numbflip = 2;
+                } else if (numbflip == 3)
+                {
+                        if (k < third + miss && k > third - miss)
+                        {
+                            door.GetComponent<LevelUnder>().OpenSecond();
+                            isReady = true;
+                        }
+                        else
+                        {
+                            Debug.Log(k);
+                            Debug.Log(third - miss);
+                            Debug.Log(third + miss);
+                            numbflip = 1;
+                        }
+                }
+            }
+            flip = true;
+
+        }
+        else if(Input.GetAxisRaw("Horizontal") < 0)
+        {
+            z += speed;
+            if (z > 180)
+                z = -360 + z;
+            float k = z + 70;
+            if (k > 180)
+                k = -360 + k;
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, z);
+                if (numbflip == 3)
+                {
+                    if (k < third + miss && k > third - miss)
+                    {
+                        door.GetComponent<LevelUnder>().OpenSecond();
+                        isReady = true;
+                    }
+                }
+                    if (flip)
+                //gameObject.transform.rotation = Quaternion.Euler(0, 0, z);
+            {
+                if (numbflip == 2)
+                {
+                    if (k < second + miss && k > second - miss)
+                        numbflip = 3;
+                    else
+                        numbflip = 1;
+                }
+            }
+            flip = false;
+        }
     }
+
 }

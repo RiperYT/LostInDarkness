@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785ac2bd1b6bd1c428ea1c6f5b6b3980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DarkSprite: {fileID: 8955447956479477913}
+  DarkSprite: {fileID: 8955447954712600071}
   LightSprite: {fileID: 8955447956479477913}
   PointSmall: {fileID: 8955447955476306007}
   PointLarge: {fileID: 8955447956600847956}

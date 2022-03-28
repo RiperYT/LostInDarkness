@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Ladder : MonoBehaviour
+public class HatchUpper : MonoBehaviour
 {
-
     public GameObject pressE;
 
     public GameObject hero;
@@ -15,7 +14,7 @@ public class Ladder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
